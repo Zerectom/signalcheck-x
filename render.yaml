@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: signalcheck-x
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SORSA_API_KEY
+        sync: false
