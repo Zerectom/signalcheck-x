@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a1012" />
+  <meta name="description" content="Check X (Twitter) search visibility, search suggestions, ghost bans and reply deboosting. Automatic checks when available, honest guided checks always. No X login required." />
+  <meta property="og:title" content="SignalCheck — X Visibility Checker" />
+  <meta property="og:description" content="Is X hiding your reach? Check search, suggestions, replies and more. No sign-in required." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="/app.js" defer></script>
+  <title>SignalCheck — X Shadowban & Visibility Checker</title>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="header shell">
+    <a class="logo" href="/" aria-label="SignalCheck home">
+      <span class="logo-mark" aria-hidden="true"><span></span></span>
+      <span>SIGNAL<span class="logo-accent">CHECK</span><span class="logo-dot">.</span></span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#how-it-works">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-button" href="#scanner">Check an account <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="signal-pulse" aria-hidden="true"></span> X / TWITTER VISIBILITY TOOL <span class="eyebrow-dash">/</span> 2026 EDITION</div>
+        <h1 id="hero-title">Is X hiding <span class="headline-outline">your</span><br /><span class="headline-accent">reach?</span></h1>
+        <p class="hero-description">Your posts are live. But can anyone find them? Check the visibility signals that matter, without connecting your X account.</p>
+        <div class="hero-proof"><span class="proof-icon">✓</span> No login required <span class="proof-sep"></span> <span class="proof-icon">✓</span> Clear, explainable results</div>
+
+        <div class="lookup-card" id="scanner">
+          <div class="lookup-top">
+            <span>ACCOUNT VISIBILITY SCAN</span>
+            <span id="modePill" class="mode-pill"><span class="mode-light"></span> DETECTING MODE</span>
+          </div>
+          <form id="lookupForm" novalidate>
+            <label for="handleInput">Enter an X username or profile link</label>
+            <div class="input-row">
+              <div class="input-wrap"><span aria-hidden="true">@</span><input id="handleInput" name="username" type="text" placeholder="username" autocomplete="off" spellcheck="false" maxlength="120" aria-describedby="handleError" /></div>
+              <button class="scan-button" id="scanBtn" type="submit"><span id="scanButtonText">Check visibility</span><span aria-hidden="true">↗</span></button>
+            </div>
+            <p id="handleError" class="form-message" role="alert"></p>
+          </form>
+          <div class="lookup-bottom"><span><span class="tiny-dot"></span> Public profiles only</span><span>Search · Suggestions · Replies</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Diagram of visibility signals checked: search, suggestions, replies, and rankings">
+        <div class="visual-topline"><span>VISIBILITY MATRIX</span><span class="visual-timestamp">SIGNAL / 01—04</span></div>
+        <div class="radar">
+          <div class="radar-ring ring-1"></div><div class="radar-ring ring-2"></div><div class="radar-ring ring-3"></div><div class="radar-cross cross-x"></div><div class="radar-cross cross-y"></div><div class="radar-sweep"></div><div class="radar-center"><div class="radar-point"></div></div>
+          <div class="radar-tag radar-tag-a"><span class="tiny-dot"></span> SEARCH INDEX</div>
+          <div class="radar-tag radar-tag-b"><span class="tiny-dot"></span> DISCOVERY</div>
+          <div class="radar-tag radar-tag-c"><span class="tiny-dot amber"></span> REPLY RANKING</div>
+        </div>
+        <div class="visual-stats"><div><strong>04</strong><span>VISIBILITY AREAS</span></div><div><strong>02</strong><span>AUTOMATABLE*</span></div><div><strong>00</strong><span>ACCOUNT PERMISSIONS</span></div></div>
+        <p class="visual-note">*Requires the optional data-provider API.</p>
+      </div>
+    </section>
+
+    <section class="results-section shell" id="report" aria-labelledby="reportTitle" hidden>
+      <div class="section-kicker"><span class="kicker-square"></span> YOUR VISIBILITY REPORT</div>
+      <div class="report-top">
+        <div><h2 id="reportTitle">Results for <a id="reportProfile" href="https://x.com" target="_blank" rel="noopener noreferrer">@username <span aria-hidden="true">↗</span></a></h2><p id="reportTime">Ready to evaluate your visibility.</p></div>
+        <button type="button" class="button-quiet" id="shareBtn" title="Copy shareable checker link">Copy check link <span aria-hidden="true">↗</span></button>
+      </div>
+      <div id="summaryPanel" class="summary-panel tone-neutral" role="status" aria-live="polite">
+        <div class="summary-symbol" id="summarySymbol">◉</div><div class="summary-copy"><div id="summaryEyebrow">VISIBILITY STATUS</div><h3 id="summaryTitle">Review the checks below</h3><p id="summaryDescription">We report only evidence we can actually measure or you verify yourself.</p></div>
+        <div class="summary-counter"><strong id="counterValue">0/4</strong><span>CHECKS REVIEWED</span></div>
+      </div>
+      <div class="checks-intro"><h3>Visibility breakdown <span class="subtle">/ 04 tests</span></h3><p id="resultsModeText">Tests will be marked automatic or self-reported.</p></div>
+      <div class="check-grid">
+        <article class="check-card" data-check="search">
+          <div class="check-top"><span class="check-icon">01</span><span class="check-status is-untested" data-status="search">NOT TESTED</span></div>
+          <div class="check-kind" data-source="search">SEARCH INDEX · GUIDED</div><h4>Search ban</h4>
+          <p class="check-note" data-note="search">Your recent public posts may be missing from X’s Latest search results.</p>
+          <a class="external-link" data-link="search" href="https://x.com/search" target="_blank" rel="noopener noreferrer">Open Latest search <span aria-hidden="true">↗</span></a>
+          <div class="guided-box" data-manual="search"><p>Are recent public posts visible in Latest search? Allow some time for indexing.</p><div class="choice-row"><button type="button" data-answer="clear">Visible</button><button type="button" data-answer="issue">Missing</button><button type="button" data-answer="unknown">Unsure</button></div></div>
+        </article>
+        <article class="check-card" data-check="suggestion">
+          <div class="check-top"><span class="check-icon">02</span><span class="check-status is-untested" data-status="suggestion">NOT TESTED</span></div>
+          <div class="check-kind" data-source="suggestion">AUTOCOMPLETE · GUIDED</div><h4>Suggestion ban</h4>
+          <p class="check-note" data-note="suggestion">See if your account appears as you type your handle into X’s search suggestion dropdown.</p>
+          <a class="external-link" data-link="suggestion" href="https://x.com/search" target="_blank" rel="noopener noreferrer">Open X search <span aria-hidden="true">↗</span></a>
+          <div class="guided-box" data-manual="suggestion"><p>Type the handle, without submitting. Does the account appear in suggestions?</p><div class="choice-row"><button type="button" data-answer="clear">Appears</button><button type="button" data-answer="issue">Missing</button><button type="button" data-answer="unknown">Unsure</button></div></div>
+        </article>
+        <article class="check-card" data-check="ghost">
+          <div class="check-top"><span class="check-icon">03</span><span class="check-status is-untested" data-status="ghost">NOT TESTED</span></div>
+          <div class="check-kind">REPLY VISIBILITY · GUIDED</div><h4>Ghost ban</h4>
+          <p class="check-note" data-note="ghost">Check whether your replies appear in the original conversation from a non-follower’s view.</p>
+          <a class="external-link" data-link="ghost" href="https://x.com" target="_blank" rel="noopener noreferrer">Find a recent reply <span aria-hidden="true">↗</span></a>
+          <div class="guided-box" data-manual="ghost"><p>Open the original conversation in another account. Is your reply visible at all, including hidden sections?</p><div class="choice-row"><button type="button" data-answer="clear">Visible</button><button type="button" data-answer="issue">Missing</button><button type="button" data-answer="unknown">Unsure</button></div></div>
+        </article>
+        <article class="check-card" data-check="deboost">
+          <div class="check-top"><span class="check-icon">04</span><span class="check-status is-untested" data-status="deboost">NOT TESTED</span></div>
+          <div class="check-kind">REPLY RANKING · GUIDED</div><h4>Reply deboosting</h4>
+          <p class="check-note" data-note="deboost">Find out if your replies are pushed behind “Show more replies” or a similar collapsed section.</p>
+          <a class="external-link" data-link="deboost" href="https://x.com" target="_blank" rel="noopener noreferrer">Inspect reply threads <span aria-hidden="true">↗</span></a>
+          <div class="guided-box" data-manual="deboost"><p>From a different account, are your replies in the normal thread or collapsed behind a fold?</p><div class="choice-row"><button type="button" data-answer="clear">Normal</button><button type="button" data-answer="issue">Collapsed</button><button type="button" data-answer="unknown">Unsure</button></div></div>
+        </article>
+      </div>
+      <div class="report-footer"><span>Important: Missing visibility ≠ proof of a penalty. Ranking, safe-search settings, privacy, timing, and personalization also matter.</span><a href="https://x.com/i/under_the_hood" target="_blank" rel="noopener noreferrer">X's Under the Hood <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section class="process-section" id="how-it-works">
+      <div class="shell"><div class="section-kicker"><span class="kicker-square"></span> TRANSPARENCY FIRST</div>
+        <div class="process-head"><h2>A real check.<br /><span>Not a made-up score.</span></h2><p>“Shadowban” is a broad term. We distinguish what an outside service can measure from what needs you to look at the actual X interface.</p></div>
+        <div class="process-grid">
+          <article><div class="process-num">/ 01</div><h3>Enter any public handle</h3><p>No X password, OAuth approval or account connection. Your username is enough to start.</p></article>
+          <article><div class="process-num">/ 02</div><h3>Get available signals</h3><p>With an API configured, search and suggestion visibility can be measured automatically. Otherwise use direct X links.</p></article>
+          <article><div class="process-num">/ 03</div><h3>Verify the tricky ones</h3><p>Ghost bans and ranking are dependent on conversations and viewers. Inspect replies from a different account.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section shell" id="faq"><div class="section-kicker"><span class="kicker-square"></span> GOOD TO KNOW</div><div class="faq-layout"><div><h2>Questions,<br /><span>answered.</span></h2><p class="faq-side">A visibility signal isn't a guaranteed explanation for low impressions.</p></div><div class="faq-items">
+      <details><summary>Does X offer an official shadowban status?<span aria-hidden="true">+</span></summary><p>X has visibility controls, search filtering and an “Under the Hood” reporting tool for eligible users. But there is no single public real-time flag that confirms every kind of “shadowban.”</p></details>
+      <details><summary>Why are some checks manual?<span aria-hidden="true">+</span></summary><p>Search autocomplete can be tested through a specialist provider, but ghosting and reply ranking can vary by thread, viewer and time. We won't call those automatic without an actual measurement.</p></details>
+      <details><summary>Does a missing post mean I'm banned?<span aria-hidden="true">+</span></summary><p>Not necessarily. Search indexing delays, private accounts, sensitive-content filters, ranking, deleted posts or X access issues can also make content disappear. Repeat the observation from an independent account.</p></details>
+      <details><summary>Do you store my X password?<span aria-hidden="true">+</span></summary><p>We never request X passwords or authorization. With automatic mode enabled, your entered public username is sent to the site server and its configured data provider; results may be cached. We do not provide a user account system.</p></details>
+    </div></div></section>
+
+    <section class="final-cta shell"><div><div class="section-kicker"><span class="kicker-square"></span> READY TO CHECK?</div><h2>Stop guessing.<br /><span>Start checking.</span></h2></div><a href="#scanner">Run a visibility check <span aria-hidden="true">↗</span></a></section>
+  </main>
+  <footer class="footer shell"><div class="footer-main"><a class="logo" href="/"><span class="logo-mark" aria-hidden="true"><span></span></span><span>SIGNAL<span class="logo-accent">CHECK</span><span class="logo-dot">.</span></span></a><p>Independent X visibility analysis. Not affiliated with X Corp.</p></div><div class="footer-links"><a href="https://help.x.com/en/rules-and-policies/x-search-policies" target="_blank" rel="noopener noreferrer">X search policies ↗</a><a href="https://help.x.com/en/using-x/x-search-not-working" target="_blank" rel="noopener noreferrer">Search troubleshooting ↗</a></div><div class="footer-line"><span>© <span id="footerYear">2026</span> SignalCheck</span><span>CHECK THE SIGNAL. QUESTION THE ASSUMPTION.</span></div></footer>
+</body>
+</html>
